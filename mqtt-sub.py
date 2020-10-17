@@ -2,12 +2,12 @@ import paho.mqtt.client as mqtt
 import time
 
 broker_address = "localhost"
-port = 1883
+port = 8883
 keep_alive_time = 60
 topic = "new/temp"
 
-
-#CA_CERT = ""
+#path to CA crt
+CA_CERT = 'ca.crt'
 #CLIENT_CERT = ""
 #CLIENT_KEY = "" 
 #CIPHERS = "" 
@@ -52,7 +52,7 @@ def on_log(client, userdata, level, buf):
     print("log: " + buf)
 
 
-client = mqtt.Client("client_test", True, None )
+client = mqtt.Client("client_test3", True, None )
 client.on_connect = on_connect
 client.on_subscribe = on_subscribe
 client.on_message = on_message
@@ -63,7 +63,8 @@ client.on_log = on_log
 
 
 
-#tls_set(CA_CERT, CLIENT_CERT, CLIENT_KEY, ssl.CERT_REQUIRED)
+
+client.tls_set(CA_CERT,tls_version=2) 
 #username_pw_set(username, password=None)
 #will_set(topic, payload=None, qos=0, retain=False)
 
